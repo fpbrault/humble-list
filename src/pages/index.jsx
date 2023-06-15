@@ -112,28 +112,61 @@ const Home = () => {
       {
         Header: 'Game Name',
         accessor: 'game_name',
-        Cell: ({ value, row }) => (
-          <div tabIndex={0} className="collapse collapse-arrow">
-            <input type="checkbox" />
-            <div className="text-xl font-medium collapse-title">
-              <a target="_blank" className={" link link-primary link-hover font-bold text-lg" + (row.original.available === "false" ? " line-through" : "")} href={row.original.game_url}>
-                {value}
-              </a></div>
-            <div className="collapse-content">
-              <ul className='p-4 m-2 space-y-1 text-lg border rounded-lg border-base-200 bg-base-300 text-primary'>
-                <li>Price: <span className='text-xl font-bold'>{row.original.game_price}</span></li>
-                <li>Genre: <span className='text-xl font-bold'>{row.original.genre}</span></li>
-                <li>Release Date: <span className='text-xl font-bold'>{row.original.release_date}</span></li>
-                <li className='py-4'><span className='text-lg'>{row.original.description}</span>
-                </li>
-                <li>{row.original.tags.length ? row.original.tags.sort().map((tag) => (<span key={tag} className='badge badge-primary p-2 mx-1 my-0.5'>{tag}</span>)) : null}</li>
-              </ul>
+        Cell: ({ value, row }) => {
+          const [isCollapsed, setIsCollapsed] = useState(true);
+          const [gameBanner, setGameBanner] = useState('');
 
 
-            </div></div>
-        ),
+          const handleCollapse = async () => {
+            setIsCollapsed(!isCollapsed);
+
+            if (isCollapsed) {
+
+              const appId = row.original.game_url.match(/\/(\d+)\//)[1];
+              const bannerUrl = `https://cdn.akamai.steamstatic.com/steam/apps/${appId}/header.jpg`;
+
+              // Fetch the game banner from the constructed URL
+              const response = await fetch(bannerUrl);
+              const blob = await response.blob();
+              const url = URL.createObjectURL(blob);
+              setGameBanner(url);
+            } else {
+              // Clear the game banner URL
+              setGameBanner('');
+            }
+          };
+
+          return (
+            <div tabIndex={0} className="collapse collapse-arrow">
+              <input type="checkbox" onClick={handleCollapse} />
+              <div className="text-xl font-medium collapse-title">
+                <a
+                  target="_blank"
+                  className={
+                    'link link-primary link-hover font-bold text-lg' +
+                    (row.original.available === 'false' ? ' line-through' : '')
+                  }
+                  href={row.original.game_url}
+                >
+                  {value}
+                </a>
+              </div>
+              <div className="collapse-content">
+                <ul className="p-4 m-2 space-y-1 text-lg border rounded-lg border-base-200 bg-base-300 text-primary">
+                  {gameBanner && (<li>   <img src={gameBanner} alt="Game Banner" className="game-banner" /></li>)}
+                  <li>Open on Steam: <a target='_blank' href={row.original.game_url} className='text-xl font-bold link-accent link link-hover'>{row.original.game_url}</a></li>
+                  <li>Price: <span className='text-xl font-bold'>{row.original.game_price}</span></li>
+                  <li>Genre: <span className='text-xl font-bold'>{row.original.genre}</span></li>
+                  <li>Release Date: <span className='text-xl font-bold'>{row.original.release_date}</span></li>
+                  <li className='py-4'><span className='text-lg'>{row.original.description}</span>
+                  </li>
+                  <li>{row.original.tags.length ? row.original.tags.sort().map((tag) => (<span key={tag} className='badge badge-primary p-2 mx-1 my-0.5'>{tag}</span>)) : null}</li>
+                </ul>
+              </div>
+            </div >
+          );
+        },
       },
-
       {
         Header: 'Score',
         accessor: 'review_score',
