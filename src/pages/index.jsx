@@ -226,7 +226,7 @@ const Home = () => {
   }
 
   const Layout = ({ children }) => (
-    <div className='h-screen' data-theme={themeName}>
+    <div className='h-full' data-theme={themeName}>
       <h1 className='p-4 text-4xl font-bold text-center bg-primary text-primary-content'>Steam Games </h1>
 
       <div className='flex justify-center gap-4 py-4 bg-base-200'>
