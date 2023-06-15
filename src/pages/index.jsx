@@ -152,9 +152,9 @@ const Home = () => {
                 </a>
               </div>
               <div className="collapse-content">
-                <ul className="p-4 m-2 space-y-1 text-lg border rounded-lg border-base-200 bg-base-300 text-primary">
-                  {gameBanner && (<li>   <img src={gameBanner} alt="Game Banner" className="game-banner" /></li>)}
-                  <li>Open on Steam: <a target='_blank' href={row.original.game_url} className='text-xl font-bold link-accent link link-hover'>{row.original.game_url}</a></li>
+                <ul className="p-4 my-2 space-y-1 text-lg border rounded-lg border-base-200 bg-base-300 text-primary w-full max-w-[16rem] sm:max-w-lg">
+                  {gameBanner && (<li>   <img src={gameBanner} alt="Game Banner" className="w-full game-banner" /></li>)}
+                  <li className='w-full'>Open on Steam: <a target='_blank' href={row.original.game_url} className='text-xl font-bold break-words link-accent link link-hover'>{row.original.game_name}</a></li>
                   <li>Price: <span className='text-xl font-bold'>{row.original.game_price}</span></li>
                   <li>Genre: <span className='text-xl font-bold'>{row.original.genre}</span></li>
                   <li>Release Date: <span className='text-xl font-bold'>{row.original.release_date}</span></li>
