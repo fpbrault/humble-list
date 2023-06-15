@@ -85,7 +85,6 @@ const Home = () => {
   useEffect(() => {
     const settings = getUserSettings();
     if (settings) {
-      console.log(settings)
       setThemeName(settings.themeName);
       setViewMode(settings.viewMode);
       setLoaded(true); // Set loaded flag to true
@@ -96,7 +95,6 @@ const Home = () => {
   useEffect(() => {
     if (loaded) {
       saveUserSettings({ themeName, viewMode });
-      console.log('Saved settings:', { themeName, viewMode });
     }
   }, [themeName, viewMode, loaded]);
 

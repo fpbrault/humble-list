@@ -1,7 +1,6 @@
 export const getUserSettings = () => {
     const settings = localStorage.getItem('userSettings');
-    console.log(settings);
-    return settings ? JSON.parse(settings) : null;
+    return settings ? JSON.parse(settings) : { themeName: 'coffee', viewMode: "detailed" };
 };
 
 export const saveUserSettings = (settings: any) => {
