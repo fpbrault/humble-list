@@ -116,7 +116,7 @@ const Home = () => {
           <div tabIndex={0} className="collapse collapse-arrow">
             <input type="checkbox" />
             <div className="text-xl font-medium collapse-title">
-              <a target="_blank" className={" link text-xs link-primary link-hover font-bold xs:text-lg" + (row.original.available === "false" ? " line-through" : "")} href={row.original.game_url}>
+              <a target="_blank" className={" link link-primary link-hover font-bold text-lg" + (row.original.available === "false" ? " line-through" : "")} href={row.original.game_url}>
                 {value}
               </a></div>
             <div className="collapse-content">
@@ -159,7 +159,7 @@ const Home = () => {
         Header: 'Game Name',
         accessor: 'game_name',
         Cell: ({ value, row }) => (
-          <a target="_blank" className={"link link-primary link-hover font-bold sm:text-lg" + (row.original.available === "false" ? " line-through" : "")} href={row.original.game_url}>
+          <a target="_blank" className={"link link-primary link-hover font-bold text-lg" + (row.original.available === "false" ? " line-through" : "")} href={row.original.game_url}>
             {value}
           </a>
         ),
@@ -226,7 +226,7 @@ const Home = () => {
   }
 
   const Layout = ({ children }) => (
-    <div data-theme={themeName}>
+    <div className='h-screen' data-theme={themeName}>
       <h1 className='p-4 text-4xl font-bold text-center bg-primary text-primary-content'>Steam Games </h1>
 
       <div className='flex justify-center gap-4 py-4 bg-base-200'>
@@ -250,7 +250,7 @@ const Home = () => {
 
   if (error) return <Layout>failed to load</Layout>
 
-  if (isLoading) return <Layout >Loading...</Layout>
+  if (isLoading) return <Layout ><div className="flex justify-center h-full "><span className="loading loading-spinner loading-lg"></span></div></Layout>
 
   return (
     <Layout>
